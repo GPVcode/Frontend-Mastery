@@ -1,0 +1,202 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Open Sans';
+}
+
+.page{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr 1.5fr 1fr .5fr;
+    grid-template-areas: 
+        "header header"
+        "items name"
+        "items payment"
+        "summary summary"
+        "button button";
+}
+
+header.brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #41271a;
+    padding: 30px;
+    color: #fbf0be;
+    grid-area: header;
+}
+
+img.logo {
+    grid-area: logo;
+    height: 50px;
+    padding-right: 5px;
+}
+
+h1.brand-name{
+    grid-area: brand-name;
+}
+
+/* Items Section */
+section.items-section{
+    grid-area: items;
+    display: grid;
+    grid-template-columns: 1fr 7fr 1fr;
+    grid-template-rows: repeat(3, auto);
+    background-color: #fbf0be;
+    padding: 30px 15px 50px 15px;
+    margin: 30px 15px 30px 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+h2.section-title{
+    grid-column: 1 / -1;
+    padding: 10px;
+}
+
+.order{
+    display: contents;
+}
+
+.quantity1, 
+.quantity2,
+.order-details1,
+.order-details2,
+.price1,
+.price2{
+    border-bottom: 2px solid #000000;
+    color: #160d08;
+    padding-bottom: 10px;
+}
+
+h2.name-of-order {
+    margin: 10px;
+}
+
+h3.order-desc{
+    margin: 0px 10px 10px 10px;
+}
+.order-details:last-child{
+    margin: 0px 10px 20px 10px;
+    background-color: antiquewhite;
+}
+
+.quantity{
+    width: 80%;
+    justify-self: flex-end;
+    padding: 10px;
+}
+
+.price{
+    width: 80%;
+    justify-self: flex-start;
+    padding: 10px;
+}
+p.quantity1{
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+div.order-details1{
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+h2.price1{
+    grid-area: 2 / 3 / 3 / 4;
+}
+
+h3.order-desc{
+    font-weight: 400;
+    font-size: medium;
+    color: #7d4a31;
+}
+
+
+/* Name Section */
+section.name-section{
+    grid-area: name;
+    background-color: #fbf0be;
+    padding: 30px 15px 30px 15px;
+    margin: 30px 30px 15px 15px;
+    border-radius: 10px;
+    row-gap: 10px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.name-input-container{
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.name-label, .card-label, .ccv-label{
+    background-color: #fbf0be;
+    color: rgb(0, 0, 0);
+    font-size: 11px;
+    left: 25px;
+    top: -7px;
+    padding: 0 2px;
+    position: absolute;
+    border-radius: 9px;
+}
+
+.name-input, .card-number-input, .ccv-number-input{
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #fbf0be;
+    border: double;
+}
+
+/* Payment section */
+section.payment-section{
+    grid-area: payment;
+    background-color: #fbf0be;
+    padding: 30px 15px 40px 15px;
+    margin: 15px 30px 30px 15px;
+    border-radius: 10px;
+    row-gap: 10px;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.payment-input-container{
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input.ccv-number-input{
+    width: 40%;
+}
+
+section.payment-summary-container{
+    grid-area: summary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+td{
+    padding: 20px 200px;
+}
+
+tr.order-total{
+    font-weight: bolder;
+}
+
+.place-order{
+    grid-area: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
+    border-radius: 25px;
+    border: none;
+    background-color: #fbf0be;
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
