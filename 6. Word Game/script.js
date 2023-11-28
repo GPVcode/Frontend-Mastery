@@ -1,93 +1,84 @@
 // onLoad, get a new number for word game.
-let word1 = "";
+let word1 = [];
 window.addEventListener("load", async (event) => {
     const promise = await fetch('https://words.dev-apis.com/word-of-the-day');
     const processedResponse = await promise.json();
     let word = processedResponse.word;
-    word1 = word;
+    word1 = word.split('');
     // document.querySelector(".word").innerText = word1;
+    console.log(word1)
+
 });
 
 // validate api https://words.dev-apis.com/validate-word;
 
-let gridRows = document.querySelectorAll('.grid-row');
-let cells = document.querySelectorAll('.cell');
 
-function typeLetter (key){
-    let regex = /^[a-zA-Z]+$/;
-    let column = 1;
-    if(key === 'Backspace'){
-        return;
-    }
-    if(regex.test(key) === false){
-        console.log("false")
-    }
-    // while(column <= 5){
-    //     if(key){
-    //         document.querySelector(`.cell${column}`).innerText = key;
-    //         column++;
-    //     }
-    // };
-};
+let column = 1; row = 1;
+let maxColumns = 5;
 
+// This handles user's keyboarrd activity
+// typeLetter function is called to either handle backspace fucntion or letter input per column.
 document.addEventListener('keydown', (e) => {
     let key = e.key;
     typeLetter(key);
-})
 
+    // if column is greater than 5, column goes back to 1 and row increments by 1;
+    if(column > maxColumns){
+        column = 1
+        row++;
+    };
 
+});
 
-// let grid = [];
-// gridRows.forEach(row => {
-//     grid.push(row)
-// })
-// document.addEventListener('keydown', (e) => {
-//     let key = e.key;
-//     while(column <= 5){
-//         if(column === 5) {
-//             stack = [];
-//             row++;
-//         } else {
-//             grid[row][column] = key;
-//             gridRows[0] = grid[row][column]
-//         }
-//     };
+// Type letter handles backspace if user decides to delete message and what happens in each row column when user types letters
+function typeLetter (key){
+    // if "backspace" appears from key event, column decreases by 1 and that specific column in that row changes to ''
+    // end function after backspace. 
+    if(key === "Backspace"){
+        handleBackspace();
+        return;
+    }
 
-// })
+    // use regex to ensure only letter are used.
+    // if so, user can add new letters in the column spaces
+    let regex = /^[a-zA-Z]$/;
+    if(regex.test(key)){
+        traverseColumn(key)
+    }
+};
 
-// gridRows.forEach((row) => {
-//     let key = document.addEventListener('keydown', (e) => e.key)
+// if column is greater than 1, column decrements and that column space converts to empty string
+// if column is not greater than 1, column becomes max column and row decrements by 1
+function handleBackspace(){
+        
+    if(column > 1){
+        column--;
+    } else if (row > 1){
+        row--;
+        column = maxColumns;
+    }
+    document.querySelector(`.row${row} .cell${column}`).innerText = '';
+    document.querySelector(`.row${row} .cell${column}`).style.background = ''
+}
 
-//     while(stack.length < 5){
-//         stack.push(key);
-//         row[stack.length] = key;
+// This function takes care of letter inputs
+// if column is less or equal to max column, set that grid placement to the key which is passed in from out typeLetter function.
+function traverseColumn(key){
+    if(column <= maxColumns){
+        let currentCell = document.querySelector(`.row${row} .cell${column}`);
+        if(currentCell){
+            currentCell.innerHTML = `<div class='letter-input'>${key}</div>`;
+            validator(key)
+            column++
+        }
+    }
+}
 
-//     }
-// })
-// track current row
-// fill up first row until column reaches > 4. When cells are full, update current row plus 1
-// when letter is pressed, letter in current cell is updated.
-// let row = 0, column = 0;
+function validator(key){
+    for(let i = 0; i < word1.length; i++){
+        // check if key is in word 1 array
+            // if it i, background is yellow
+            // if it is also in the same index, background is green
 
-// for(let i = 0; i < cells.length; i++){
-//     gridRows[0][0] = stack[0]
-// }
-// typed letter pushes value to a stack
-// the stack fills up the divs
-// gridRows.forEach(row => {
-
-//     let cells = row.querySelectorAll('.cell');
-//     let stack = [];
-//     for(let i = 0; i < cells.length; i++){
-//         if(document.addEventListener('keydown', (e) => {
-//             console.log(e.key)
-//         }) === "Backspace"){
-//             stack.pop();
-//         }
-//         else {
-//             document.addEventListener('keydown', (e) => {
-//                 stack.push(e.key)
-//             })
-//         }
-//     }
-// })
+    }   
+};
