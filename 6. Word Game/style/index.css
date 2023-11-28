@@ -5,15 +5,18 @@
 
 body {
     box-sizing: border-box;
+    font-family:'Lato', Courier, monospace;
 }
 
 .main-container {
-    background-color: aqua;
+    width: 50%;
+    margin: 0 auto 3rem;
 }
 
 .line {
     background-color: black;
     height: 1px;
+    margin: 1rem 0 2rem 0;
 }
 /* 
     - Word Masters at the top for the title
@@ -23,3 +26,37 @@ body {
     - the grid rpws are grey inside and white text when user submits entry.
         - if user gets a letter right, the cell will be yellow instead of grey.
 */
+.word-masters {
+    padding: 2rem;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.grid-row{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.cell {
+    position: relative;
+    width: 50%;
+    overflow: hidden;;
+    border: solid black 1px;
+    margin: 1rem;
+}
+
+.cell:before{
+    content: "";
+    display: flex;
+    padding-top: 100%;
+}
+.cell-content{
+    position:  absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+}
