@@ -1,21 +1,17 @@
 // onLoad, get a new number for word game.
 let word1 = [];
+
 window.addEventListener("load", async (event) => {
     const promise = await fetch('https://words.dev-apis.com/word-of-the-day');
     const processedResponse = await promise.json();
     let word = processedResponse.word;
+    console.log("word: ", word)
     word1 = word.split('');
-    // document.querySelector(".word").innerText = word1;
-    console.log(word1)
-
 });
-
-// validate api https://words.dev-apis.com/validate-word;
 
 
 let column = 1; row = 1;
 let maxColumns = 5;
-
 // This handles user's keyboarrd activity
 // typeLetter function is called to either handle backspace fucntion or letter input per column.
 document.addEventListener('keydown', (e) => {
@@ -27,23 +23,43 @@ document.addEventListener('keydown', (e) => {
         column = 1
         row++;
     };
-
 });
 
+let userword = [];
 // Type letter handles backspace if user decides to delete message and what happens in each row column when user types letters
-function typeLetter (key){
+async function typeLetter (key){
+    if(userword.length === 5){
+        let answer = userword.join('');
+        console.log("answer: ", answer)
+        const promise = await fetch('https://words.dev-apis.com/validate-word', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"word": answer})
+        });
+        const content = await promise.json();
+        if(content.validWord){
+            alert("winner");
+        } else if(!content.validWord){
+            userword = [];
+        }
+    }
     // if "backspace" appears from key event, column decreases by 1 and that specific column in that row changes to ''
     // end function after backspace. 
     if(key === "Backspace"){
         handleBackspace();
+        userword.pop();
         return;
     }
-
     // use regex to ensure only letter are used.
     // if so, user can add new letters in the column spaces
     let regex = /^[a-zA-Z]$/;
     if(regex.test(key)){
         traverseColumn(key)
+        console.log("length?", userword.length)
+        console.log("userword: ", userword)
+        userword.push(key)
     }
 };
 
@@ -68,17 +84,26 @@ function traverseColumn(key){
         let currentCell = document.querySelector(`.row${row} .cell${column}`);
         if(currentCell){
             currentCell.innerHTML = `<div class='letter-input'>${key}</div>`;
-            validator(key)
-            column++
-        }
-    }
-}
-
-function validator(key){
-    for(let i = 0; i < word1.length; i++){
-        // check if key is in word 1 array
-            // if it i, background is yellow
-            // if it is also in the same index, background is green
-
-    }   
+            currentCell.style.background = 'gray';
+            validator(key);
+            column++;
+        };
+    };
 };
+
+// Validates letter -- if letter is in same spot as word, or is in word but different spot or not in word at all 
+function validator(key){
+    let currentCell = document.querySelector(`.row${row} .cell${column}`);
+
+    if(key === word1[column - 1]){
+        currentCell.style.background = 'green';
+        return;
+    };
+
+    for(let i = 0; i < word1.length; i++){
+        if(key === word1[i]){
+            currentCell.style.background = 'antiquewhite';
+        };
+    };
+};
+
