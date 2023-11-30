@@ -1,31 +1,40 @@
 class Bookshelf {
 	constructor() {
 		this.favoriteBooks = [];
-	}
+	};
 
 	// TODO: define methods `addFavoriteBook(..)`
 	// and `printFavoriteBooks()`
-}
+	addFavoriteBook(bookName) {
+		if (!bookName.includes("Great")) {
+			this.favoriteBooks.push(bookName);
+		};
+	};
+	
+	printFavoriteBooks() {
+		console.log(`Favorite Books: ${ String( this.favoriteBooks.length ) }`);
+		for(let bookname of this.favoriteBooks){
+			console.log(bookname)
+		}
+	};
 
-function addFavoriteBook(bookName) {
-	if (!bookName.includes("Great")) {
-		favoriteBooks.push(bookName);
-	}
-}
+};
 
-function printFavoriteBooks() {
-	console.log(`Favorite Books: ${favoriteBooks.length}`);
-	for (let bookName of favoriteBooks) {
-		console.log(bookName);
-	}
-}
-
-function loadBooks( /* .. */ ) {
-	// TODO: call fakeAjax( .. );
+	
+function loadBooks( theBookshelf) {
+	fakeAjax(BOOK_API, function myBooks(booknames){
+		for(let bookname of booknames){
+			theBookshelf.addFavoriteBook(bookname)
+		}
+		theBookshelf.printFavoriteBooks();
+	});
 }
 
 var BOOK_API = "https://some.url/api";
 
+let bookshelf = new Bookshelf();
+
+loadBooks(bookshelf);
 
 // ***********************
 
