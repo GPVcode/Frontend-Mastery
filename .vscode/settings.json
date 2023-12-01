@@ -5,5 +5,10 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#370A84",
+    "titleBar.activeBackground": "#4D0EB8",
+    "titleBar.activeForeground": "#FDFDFF"
   }
 }
