@@ -96,6 +96,8 @@ h3.order-desc{
     justify-self: flex-start;
     padding: 10px;
 }
+
+/* short form grid */
 p.quantity1{
     grid-area: 2 / 1 / 3 / 2;
 }
