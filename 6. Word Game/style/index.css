@@ -19,6 +19,7 @@ body {
     margin: 1rem 0 2rem 0;
 }
 
+/* cell styles */
 .word-masters {
     display: flex;
     justify-content: center;
